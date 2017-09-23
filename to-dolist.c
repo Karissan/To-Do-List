@@ -4,12 +4,22 @@
 #include <stdlib.h>
 
 int get_option() {
-  printf("To-do list menu: \n");
+  printf("\nTo-do list menu: \n");
   printf("(Q)uit\n");
+  printf("(A)dd an item\n");
+  printf("(D)elete an item\n");
   char* response = readline("Select an option: ");
   if (!strcmp(response, "q")) {
     free(response);
     return 1;
+  } else if (!strcmp(response, "a")) {
+	// add code
+    free(response);
+    return 2;
+  } else if (!strcmp(response, "d")) {
+	// code to delete item
+    free(response);
+    return 3;
   } else {
     printf("Error: unknown option: \"%s\"\n", response);
     free(response);
