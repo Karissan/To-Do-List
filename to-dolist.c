@@ -11,8 +11,8 @@ int get_option() {
     free(response);
     return 1;
   } else {
+    printf("Error: unknown option: \"%s\"\n", response);
     free(response);
-    printf("Error: unknown option\n");
     return 0;
   }
 }
