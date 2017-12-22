@@ -13,7 +13,7 @@ int get_option() {
     free(response);
     return 1;
   } else if (!strcmp(response, "a")) {
-	// add code
+	// add code to add item
     free(response);
     return 2;
   } else if (!strcmp(response, "d")) {
