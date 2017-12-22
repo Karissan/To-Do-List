@@ -9,21 +9,30 @@ int get_option() {
   printf("(A)dd an item\n");
   printf("(D)elete an item\n");
   char* response = readline("Select an option: ");
-  if (!strcmp(response, "q")) {
-    free(response);
-    return 1;
-  } else if (!strcmp(response, "a")) {
-	// add code to add item
-    free(response);
-    return 2;
-  } else if (!strcmp(response, "d")) {
+  if (response) {
+// check if readline returns null
+    if (!strcmp(response, "q")) {
+// if it didn't, run this
+      free(response);
+      return 1;
+    } else if (!strcmp(response, "a")) {
+	// code to add item
+      free(response);
+      return 2;
+    } else if (!strcmp(response, "d")) {
 	// code to delete item
-    free(response);
-    return 3;
+      free(response);
+      return 3;
+    } else {
+      printf("Error: unknown option: \"%s\"\n", response);
+      free(response);
+      return 0;
+    }
   } else {
-    printf("Error: unknown option: \"%s\"\n", response);
-    free(response);
-    return 0;
+// if readline returns null, give same response as quit
+    printf("\n");
+// add new line after quitting
+    return 1;
   }
 }
 int main(int argc, char **argv) {
