@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-int get_option() {
+int get_option(int list_size) {
   printf("\nTo-do list menu: \n");
   printf("(Q)uit\n");
   printf("(A)dd an item\n");
@@ -35,12 +35,27 @@ int get_option() {
     return 1;
   }
 }
+
 int main(int argc, char **argv) {
 
+  char *list_items[10] = {0};
+  int list_size = 0;
   int response = 0;
 
   while (response != 1) {
-    response = get_option();
+    printf("\nItems: \n");
+    for (int i = 0; i < list_size; i = i + 1) {
+      printf("* %s \n", list_items[i]);
+    }
+    response = get_option(list_size);
+    
+    if (response == 2) {
+     // add an item here
+      if (list_size < 10) {
+        list_items[list_size] = readline("text of to-do list:\n");
+        list_size = list_size + 1;
+      }
+    }
   }
 
   return 0;
