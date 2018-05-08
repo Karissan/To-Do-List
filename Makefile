@@ -1,2 +1,2 @@
 default:
-	gcc to-dolist.c -o to-dolist -lreadline
+	gcc -g -Wall to-dolist.c -o to-dolist -lreadline
