@@ -9,6 +9,7 @@ int get_option() {
 	printf("(q)uit\n");
 	printf("(a)dd an item\n");
 	printf("(d)elete an item\n");
+	printf("(s)ave\n");
 	char* response = readline("Select an option: ");
 	if (response) {
 		// check if readline returns null
@@ -24,6 +25,9 @@ int get_option() {
 		// code to delete item
 			free(response);
 			return 3;
+		} else if (!strcmp(response, "s")) {
+			free(response);
+			return 4;
 		} else {
 			printf("Error: unknown option: \"%s\"\n", response);
 			free(response);
@@ -98,7 +102,14 @@ int main(int argc, char **argv) {
 				free(old_list);
 				list_size--;
 			}
-		} 
+		} else if (response == 4) {
+			line = NULL;
+			len = 0;
+			return_value = getline(&line, &len, file_handle);
+			if(return_value == -1) {
+				break;
+			}
+		}
 	}
 	
 	file_handle = fopen("/home/karissan/.todo", "w");
