@@ -24,8 +24,20 @@
          (setf data (append data (list (read-line)))))
         ;; Code to add an entry. Readline copies text input, list makes the input into a list which is then added to the old list (data) which then becomes the new list.
         (#\d
-         (format t "Add later~%"))
-        (#\s
-         (format t "Add later~%"))
-        (otherwise
-         (format t "Error: Unknown option~%"))))))
+         (loop
+           (format t "Enter number: ")
+           (let ((index (read)))
+             (etypecase index
+               (integer (if (< 0 index (length data))
+                            (progn
+                              (setf data (append (subseq data 0 (1- index))
+                                                 (subseq data index (length data))))
+                              (return))
+                            (format t "Invalid input~%"))
+                (symbol (if (eq index 'c')
+                            (return)))))
+             )))
+         (#\s
+          (format t "Add later~%"))
+         (otherwise
+          (format t "Error: Unknown option~%"))))))
