@@ -12,7 +12,7 @@
       (format t "(d)elete~%")
       (format t "(q)uit~%")
       (format t "(s)ave~%")
-      (format t "~%Select an option~%")
+      (format t "~%Select an option (remember to save before quitting): ")
       ;;Prints out every item in To-Do list and will eventually apply code to every item
       (case (read-char)
         (#\q
@@ -26,7 +26,7 @@
         ;; Code to add an entry. Readline copies text input, list makes the input into a list which is then added to the old list (data) which then becomes the new list.
         (#\d
          (loop
-           (format t "Enter number: ")
+           (format t "Enter number or c to cancel: ")
            (let ((index (read)))
              (etypecase index
                (integer (if (< 0 index (1+ (length data)))
@@ -40,6 +40,8 @@
                            (return))))
              )))
          (#\s
-          (format t "Add later~%"))
+          (with-open-file (out "/home/karissan/.todo" :direction :output :if-exists :supersede)
+            (dolist (item data)
+              (format out "~a~%" item))))
          (otherwise
           (format t "Error: Unknown option~%"))))))
