@@ -1,5 +1,8 @@
 (defun todo ()
-  (let  ((data (with-open-file (file "/home/karissan/.todo")
+  (let*  ((path  (if (< 1 (length *posix-argv*))
+                     (second *posix-argv*)
+                     "/home/karissan/.todo"))
+          (data (with-open-file (file path :if-does-not-exist :create)
                  (loop for line = (read-line file nil) while line collect line))))
     (loop
       (format t "To-Do List~%")
@@ -40,8 +43,9 @@
                            (return))))
              )))
          (#\s
-          (with-open-file (out "/home/karissan/.todo" :direction :output :if-exists :supersede)
+          (with-open-file (out path :direction :output :if-exists :supersede)
             (dolist (item data)
               (format out "~a~%" item))))
          (otherwise
           (format t "Error: Unknown option~%"))))))
+(todo)
